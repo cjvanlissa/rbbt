@@ -7,9 +7,9 @@
 \usage{
 bbt_update_bib(
   path_rmd,
-  path_bib = bbt_guess_bib_file(path_rmd),
+  path_bib = NULL,
   ignore = character(0),
-  translator = bbt_guess_translator(path_bib),
+  translator = NULL,
   library_id = getOption("rbbt.default.library_id", 1),
   overwrite = TRUE,
   filter = identity,
@@ -21,7 +21,9 @@ bbt_guess_bib_file(path_rmd, encoding = "UTF-8")
 \arguments{
 \item{path_rmd}{The path to the RMarkdown file.}
 
-\item{path_bib}{The path to the bibliography file.}
+\item{path_bib}{Optionally, the path to the bibliography file.
+The default value \code{NULL}uses \code{bbt_guess_bib_file()} to detect the path from
+the 'YAML' front matter of \code{path_rmd}.}
 
 \item{ignore}{A character vector of keys to disregard (useful if
 \code{\link[=bbt_detect_citations]{bbt_detect_citations()}} gives spurious output).}
