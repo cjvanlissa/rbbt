@@ -4,7 +4,7 @@
 #' This function takes an RMarkdown file location and a bibliography file
 #' as inputs and updates the bibliography file.
 #'
-#' @param path_rmd The path to the RMarkdown file.
+#' @param path_rmd The path to the RMarkdown file(s).
 #' @param path_bib Optionally, the path to the bibliography file.
 #' The default value `NULL`uses `bbt_guess_bib_file()` to detect the path from
 #' the 'YAML' front matter of `path_rmd`.

@@ -19,7 +19,7 @@ bbt_update_bib(
 bbt_guess_bib_file(path_rmd, encoding = "UTF-8")
 }
 \arguments{
-\item{path_rmd}{The path to the RMarkdown file.}
+\item{path_rmd}{The path to the RMarkdown file(s).}
 
 \item{path_bib}{Optionally, the path to the bibliography file.
 The default value \code{NULL}uses \code{bbt_guess_bib_file()} to detect the path from
