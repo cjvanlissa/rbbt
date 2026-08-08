@@ -20,6 +20,12 @@ bbt_update_bib <- function(path_rmd,
                            translator = NULL,
                            library_id = getOption("rbbt.default.library_id", 1),
                            overwrite = TRUE, filter = identity, quiet = FALSE) {
+  if(grepl("_quarto.yml", path_rmd, fixed = TRUE)){
+    tmp <- unlist(yaml::read_yaml(path_rmd))
+    tmp <- grep(".qmd$", tmp, ignore.case = TRUE, value = TRUE)
+    path_rmd <- file.path(dirname(path_rmd), tmp)
+    path_rmd <- path_rmd[file.exists(path_rmd)]
+  }
   # Extract citations from all rmds
   keys_list <- lapply(path_rmd, bbt_detect_citations)
   # If no bib path given, guess from files. Otherwise, repeat given bib path
