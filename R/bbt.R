@@ -79,6 +79,8 @@ bbt_bib_selected <- function(translator = getOption("rbbt.default.translator", "
 bbt_bib <- function(keys, translator = getOption("rbbt.default.translator", "biblatex"),
                     library_id = getOption("rbbt.default.library_id", 1),
                     .action = bbt_print) {
+
+  keys <- keys[!grepl("^(fig|tbl|lst|tip|nte|wrn|imp|cau|thm|lem|cor|prp|cnj|def|exm|exr|sol|rem|alg|eq|sec)-", keys, ignore.case = TRUE)]
   if (length(keys) == 0)  {
     return(.action(""))
   }
