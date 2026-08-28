@@ -21,10 +21,18 @@ bbt_update_bib <- function(path_rmd,
                            library_id = getOption("rbbt.default.library_id", 1),
                            overwrite = TRUE, filter = identity, quiet = FALSE) {
   if(grepl("_quarto.yml", path_rmd, fixed = TRUE)){
-    tmp <- unlist(yaml::read_yaml(path_rmd))
-    tmp <- grep(".qmd$", tmp, ignore.case = TRUE, value = TRUE)
-    path_rmd <- file.path(dirname(path_rmd), tmp)
-    path_rmd <- path_rmd[file.exists(path_rmd)]
+    yml_contents <- unlist(yaml::read_yaml(path_rmd))
+    rmd_paths <- grep(".[rq]md$", yml_contents, ignore.case = TRUE, value = TRUE)
+    rmd_paths <- file.path(dirname(path_rmd), rmd_paths)
+
+    if(is.null(path_bib)){
+      path_bib <- grep(".bib$", yml_contents, ignore.case = TRUE, value = TRUE)[1]
+      path_bib <- file.path(dirname(path_rmd), path_bib)
+      if(!file.exists(path_bib)){
+        stop("Could not guess bib file path from `_quarto.yml`. Specify `path_bib` argument.")
+      }
+    }
+    path_rmd <- rmd_paths[file.exists(rmd_paths)]
   }
   # Extract citations from all rmds
   keys_list <- lapply(path_rmd, bbt_detect_citations)
